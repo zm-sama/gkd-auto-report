@@ -1,6 +1,9 @@
 import requests
 import time
 import os
+from dateutil import rrule
+import datetime
+from dateutil.parser import parse
 
 s = requests.Session()
 
@@ -10,6 +13,8 @@ GKD_NUMBER = os.environ["GKD_NUMBER"]
 GKD_NAME = os.environ["GKD_NAME"]
 PUSH_TOKEN = os.environ["PUSH_TOKEN"]
 
+days = rrule.rrule(rrule.DAILY,dtstart=parse('2022-9-14'),until=datetime.date.today()).count()
+pcr = 1 if(days%3==2) else 0
 
 def login(s: requests.Session):
     r = s.post("https://app.ucas.ac.cn/uc/wap/login/check", data={
@@ -61,7 +66,7 @@ def submit(s: requests.Session):
         "dqqk2": "1",                        # current situation      1.无异常
         "dqqk2qt": "",
         # 昨天是否接受核酸检测
-        "sfjshsjc": "1",                     # PCR test?       1.是 0.否
+        "sfjshsjc": "pcr",                     # PCR test?       1.是 0.否
         # 第一针接种
         "dyzymjzqk": "2",                    # first vaccination situation  3.已接种
         "dyzjzsj": "2021-03-13",             # date of first vaccination
