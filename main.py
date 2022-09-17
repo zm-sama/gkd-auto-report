@@ -7,14 +7,18 @@ from dateutil.parser import parse
 
 s = requests.Session()
 
-GKD_EMAIL = os.environ["GKD_EMAIL"]    # sep账号
-GKD_PASSWORD = os.environ["GKD_PASSWORD"]   # sep密码
-GKD_NUMBER = os.environ["GKD_NUMBER"]
-GKD_NAME = os.environ["GKD_NAME"]
-PUSH_TOKEN = os.environ["PUSH_TOKEN"]
+# GKD_EMAIL = os.environ["GKD_EMAIL"]    # sep账号
+# GKD_PASSWORD = os.environ["GKD_PASSWORD"]   # sep密码
+# GKD_NUMBER = os.environ["GKD_NUMBER"]
+# GKD_NAME = os.environ["GKD_NAME"]
+# PUSH_TOKEN = os.environ["PUSH_TOKEN"]
 
+
+#核酸3天一检填报
 days = rrule.rrule(rrule.DAILY,dtstart=parse('2022-9-14'),until=datetime.date.today()).count()
+# days = rrule.rrule(rrule.DAILY,dtstart=parse('2022-9-14'),until=parse('2022-9-18')).count()
 pcr = 1 if(days%3==2) else 0
+PCR = str(pcr)
 
 def login(s: requests.Session):
     r = s.post("https://app.ucas.ac.cn/uc/wap/login/check", data={
@@ -66,7 +70,7 @@ def submit(s: requests.Session):
         "dqqk2": "1",                        # current situation      1.无异常
         "dqqk2qt": "",
         # 昨天是否接受核酸检测
-        "sfjshsjc": "pcr",                     # PCR test?       1.是 0.否
+        "sfjshsjc": PCR,                     # PCR test?       1.是 0.否
         # 第一针接种
         "dyzymjzqk": "2",                    # first vaccination situation  3.已接种
         "dyzjzsj": "2021-03-13",             # date of first vaccination
