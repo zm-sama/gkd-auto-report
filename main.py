@@ -7,11 +7,11 @@ from dateutil.parser import parse
 
 s = requests.Session()
 
-# GKD_EMAIL = os.environ["GKD_EMAIL"]    # sep账号
-# GKD_PASSWORD = os.environ["GKD_PASSWORD"]   # sep密码
-# GKD_NUMBER = os.environ["GKD_NUMBER"]
-# GKD_NAME = os.environ["GKD_NAME"]
-# PUSH_TOKEN = os.environ["PUSH_TOKEN"]
+GKD_EMAIL = os.environ["GKD_EMAIL"]    # sep账号
+GKD_PASSWORD = os.environ["GKD_PASSWORD"]   # sep密码
+GKD_NUMBER = os.environ["GKD_NUMBER"]
+GKD_NAME = os.environ["GKD_NAME"]
+PUSH_TOKEN = os.environ["PUSH_TOKEN"]
 
 
 #核酸3天一检填报
